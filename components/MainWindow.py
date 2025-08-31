@@ -51,14 +51,6 @@ class MainWindow():
         for i in range(0, len(selections)):
             self.currentSelections.addLayout(selections[i], i, 0)
 
-    def clearLayout(self, layout):
-        while layout.count():
-            item = layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
-            elif item.layout():
-                self.clearLayout(item.layout())
-
     def setCurrentType(self, type: Type):
         self.currentType = type
         self.nameLabel.setText(components.createNameLabelText(self.currentType))
