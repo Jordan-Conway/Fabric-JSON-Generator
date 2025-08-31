@@ -1,44 +1,18 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayout, QPushButton
 import sys
 import components
-    
-def initialise(window: QWidget):
-    window.setWindowTitle("Fabric JSON Generator")
 
-    windowLayout = QGridLayout()
-    window.setLayout(windowLayout)
+currentType = components.Type.ITEM
 
-    msg = QLabel("<h1>Fabric JSON Generator</h1>", parent=window)
-    windowLayout.addWidget(msg, 0, 0)
-
-    addSelections(windowLayout)
-
-    generateButton = QPushButton()
-    generateButton.setText("Generate")
-    windowLayout.addWidget(generateButton, 2, 0)    
-
-def addSelections(window: QGridLayout):
-    selectionLayout = QGridLayout()
-    window.addLayout(selectionLayout, 1, 0)
-
-    selections = []
-
-    selections.append(components.createNameInput(components.Type.ITEM))
-    selections.append(components.createDropTableTemplateSelection())
-    selections.append(components.createRecipeTemplateSelection())
-    selections.append(components.createblockstateSelection())
-
-    for i in range(0, len(selections)):
-        selectionLayout.addLayout(selections[i], i, 0)
+app: QApplication = None
+mainWindow: components.MainWindow = None
 
 def main():
     app = QApplication([])
 
-    window = QWidget()
+    mainWindow = components.MainWindow()
 
-    initialise(window)
-
-    window.show()
+    mainWindow.show()
 
     sys.exit(app.exec())
 
