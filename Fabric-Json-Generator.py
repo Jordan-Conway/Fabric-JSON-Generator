@@ -27,6 +27,9 @@ def addSelections(window: QGridLayout):
     recipeTemplate = components.createRecipeTemplateSelection()
     selectionLayout.addLayout(recipeTemplate, 1, 0)
 
+    blockstate = components.createblockstateSelection()
+    selectionLayout.addLayout(blockstate, 2, 0)
+
 def main():
     app = QApplication([])
 
