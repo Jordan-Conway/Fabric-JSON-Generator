@@ -24,6 +24,9 @@ def addSelections(window: QGridLayout):
     dropTableTemplate = components.createDropTableTemplateSelection()
     selectionLayout.addLayout(dropTableTemplate, 0, 0)
 
+    recipeTemplate = components.createRecipeTemplateSelection()
+    selectionLayout.addLayout(recipeTemplate, 1, 0)
+
 def main():
     app = QApplication([])
 
