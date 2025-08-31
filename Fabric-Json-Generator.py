@@ -21,14 +21,15 @@ def addSelections(window: QGridLayout):
     selectionLayout = QGridLayout()
     window.addLayout(selectionLayout, 1, 0)
 
-    dropTableTemplate = components.createDropTableTemplateSelection()
-    selectionLayout.addLayout(dropTableTemplate, 0, 0)
+    selections = []
 
-    recipeTemplate = components.createRecipeTemplateSelection()
-    selectionLayout.addLayout(recipeTemplate, 1, 0)
+    selections.append(components.createNameInput(components.Type.ITEM))
+    selections.append(components.createDropTableTemplateSelection())
+    selections.append(components.createRecipeTemplateSelection())
+    selections.append(components.createblockstateSelection())
 
-    blockstate = components.createblockstateSelection()
-    selectionLayout.addLayout(blockstate, 2, 0)
+    for i in range(0, len(selections)):
+        selectionLayout.addLayout(selections[i], i, 0)
 
 def main():
     app = QApplication([])
