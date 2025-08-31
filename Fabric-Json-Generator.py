@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayout, QPushButton
 import sys
-
+import components
+    
 def initialise(window: QWidget):
     window.setWindowTitle("Fabric JSON Generator")
 
@@ -20,20 +21,8 @@ def addSelections(window: QGridLayout):
     selectionLayout = QGridLayout()
     window.addLayout(selectionLayout, 1, 0)
 
-    dropTableTemplate = createDropTableTemplateSelection()
+    dropTableTemplate = components.createDropTableTemplateSelection()
     selectionLayout.addLayout(dropTableTemplate, 0, 0)
-
-def createDropTableTemplateSelection() -> QGridLayout:
-    dropTableTemplateLabel = QLabel("Drop Table Template")
-    dropTableTemplateSelection = QComboBox()
-    dropTableTemplateSelection.addItem("None")
-    dropTableTemplateSelection.addItem("Drops Self")
-
-    dropTableTemplate = QGridLayout()
-    dropTableTemplate.addWidget(dropTableTemplateLabel, 0, 0)
-    dropTableTemplate.addWidget(dropTableTemplateSelection, 0, 1)
-
-    return dropTableTemplate
 
 def main():
     app = QApplication([])
