@@ -27,3 +27,7 @@ class Generator(ABC):
                 file.write(data)
         except OSError:
             print("Failed to create and open file. Make sure a file called " + (self.name + ".json") + " does not already exist")
+
+    @abstractmethod
+    def _createString():
+        pass

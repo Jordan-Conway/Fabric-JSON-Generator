@@ -61,7 +61,15 @@ class MainWindow():
         self.window.show()
 
     def generate(self):
-        genFlags = generators.BlockstateFlags()
-        genFlags.type = generators.BlockstateType.SINGLE
-        gen = generators.BlockstateGenerator("iron_grate", self.modName, genFlags)
-        gen.generate("./")
+        print("Generating Files")
+        # blockstateGenFlags = generators.BlockstateFlags()
+        # blockstateGenFlags.type = generators.BlockstateType.SINGLE
+        # blockstateGen = generators.BlockstateGenerator("iron_grate_block", self.modName, blockstateGenFlags)
+        # blockstateGen.generate("./")
+
+        # assetGenFlags = generators.AssetsFlags()
+        # assetGenFlags.isBlock = True
+        # assetGen = generators.AssetsGenerator("iron_grate_block", self.modName, assetGenFlags)
+        # assetGen.generate("./")
+
+        return
