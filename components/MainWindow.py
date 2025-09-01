@@ -10,7 +10,7 @@ class MainWindow():
     windowLayout: QGridLayout = None
     currentSelections: QGridLayout = None
     nameLabel: QLabel = None
-    modName: str = ""
+    modName: str = "expanded-building-blocks"
 
     def __init__(self, parent = ..., flags = ...):
         self.window = QWidget()
@@ -61,4 +61,7 @@ class MainWindow():
         self.window.show()
 
     def generate(self):
-        pass
+        genFlags = generators.BlockstateFlags()
+        genFlags.type = generators.BlockstateType.SINGLE
+        gen = generators.BlockstateGenerator("iron_grate", self.modName, genFlags)
+        gen.generate("./")

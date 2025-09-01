@@ -18,3 +18,12 @@ class Generator(ABC):
 
     def checkValidPath(path: str) -> bool:
         return os.path.isdir(path)
+    
+    def outputFile(self, path: str):
+        try:
+            fileName = path + self.name + ".json"
+            with open(fileName, "x") as file:
+                data = self._createString()
+                file.write(data)
+        except OSError:
+            print("Failed to create and open file. Make sure a file called " + (self.name + ".json") + " does not already exist")

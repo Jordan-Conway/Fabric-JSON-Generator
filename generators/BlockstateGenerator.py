@@ -29,13 +29,7 @@ class BlockstateGenerator(Generator):
         
         path += "src\\main\\resources\\assets\\" + self.mod_name + "\\blockstates\\"
 
-        try:
-            fileName = path + self.name + ".json"
-            with open(fileName, "x") as file:
-                data = self._createString()
-                file.write(data)
-        except OSError:
-            print("Failed to create and open file. Make sure a file called " + (self.name + ".json") + " does not already exist")
+        self.outputFile(path)
 
         print("Finished generating blockstate file")
     
