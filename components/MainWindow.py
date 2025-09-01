@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayou
 import sys
 from .Type import Type
 import components
-
+import generators
 
 class MainWindow():
     currentType: Type = Type.ITEM
@@ -10,6 +10,7 @@ class MainWindow():
     windowLayout: QGridLayout = None
     currentSelections: QGridLayout = None
     nameLabel: QLabel = None
+    modName: str = ""
 
     def __init__(self, parent = ..., flags = ...):
         self.window = QWidget()
@@ -32,6 +33,7 @@ class MainWindow():
 
         generateButton = QPushButton()
         generateButton.setText("Generate")
+        generateButton.clicked.connect(self.generate)
         self.windowLayout.addWidget(generateButton, 3, 0)    
 
     def addSelections(self):
@@ -57,3 +59,6 @@ class MainWindow():
 
     def show(self):
         self.window.show()
+
+    def generate(self):
+        pass
