@@ -8,3 +8,7 @@
 - Recipe options for 2x3, 1x1, 3x2, 1x3, 3x1, diamond-shapes and tools
 - Input for recipe options
 - Confirmation for recipes
+- Dedicated check for existing files
+- Logging pane
+- Descriptions for each selection
+- Support for items
