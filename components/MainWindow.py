@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayout, QPushButton
+from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayout, QPushButton, QLayout
 import sys
 from .Type import Type
 import components
@@ -11,6 +11,8 @@ class MainWindow():
     currentSelections: QGridLayout = None
     nameLabel: QLabel = None
     modName: str = "expanded-building-blocks"
+    path: str = ""
+    modSelection = None
 
     def __init__(self, parent = ..., flags = ...):
         self.window = QWidget()
@@ -25,21 +27,25 @@ class MainWindow():
         msg = QLabel("<h1>Fabric JSON Generator</h1>")
         self.windowLayout.addWidget(msg, 0, 0)
 
+        self.modSelection = components.ModPathSelection()
+        self.modSelection.modPathSelector.clicked.connect(self.changePath)
+        self.windowLayout.addLayout(self.modSelection.createModPathSelection(), 1, 0)
+
         typeSelection = components.TypeSelection()
         typeSelection.addChangedEvent(self.setCurrentType)
-        self.windowLayout.addLayout(typeSelection.createTypeSelection(), 1, 0)
+        self.windowLayout.addLayout(typeSelection.createTypeSelection(), 2, 0)
 
         self.addSelections()
 
         generateButton = QPushButton()
         generateButton.setText("Generate")
         generateButton.clicked.connect(self.generate)
-        self.windowLayout.addWidget(generateButton, 3, 0)    
+        self.windowLayout.addWidget(generateButton, 4, 0)    
 
     def addSelections(self):
         if self.currentSelections is None:
             self.currentSelections = QGridLayout()
-            self.windowLayout.addLayout(self.currentSelections, 2, 0)
+            self.windowLayout.addLayout(self.currentSelections, 3, 0)
 
         selections = []
 
@@ -57,6 +63,11 @@ class MainWindow():
         self.currentType = type
         self.nameLabel.setText(components.createNameLabelText(self.currentType))
 
+    def changePath(self) -> None:
+        self.path = self.modSelection.changeSelectedFile()
+        #self.windowLayout.addLayout(self.modSelection.createModPathSelection(),1,0)
+        print("Path is set to: " + self.path)
+
     def show(self):
         self.window.show()
 
@@ -73,3 +84,9 @@ class MainWindow():
         # assetGen.generate("./")
 
         return
+    
+def clearLayout(layout: QLayout):
+    while layout.count():
+        child = layout.takeAt(0)
+        if child.widget():
+            child.widget().deleteLater()
