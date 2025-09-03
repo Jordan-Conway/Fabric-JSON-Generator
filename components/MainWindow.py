@@ -9,10 +9,11 @@ class MainWindow():
     window: QWidget = None
     windowLayout: QGridLayout = None
     currentSelections: QGridLayout = None
-    nameLabel: QLabel = None
+    namePromptLabel: QLabel = None
     modName: str = "expanded-building-blocks"
     path: str = ""
     modSelection = None
+    name: str = ""
 
     def __init__(self, parent = ..., flags = ...):
         self.window = QWidget()
@@ -49,7 +50,7 @@ class MainWindow():
 
         selections = []
 
-        nameInput, self.nameLabel = components.createNameInput(self.currentType)
+        nameInput, self.namePromptLabel = components.createNameInput(self.currentType, self.setName)
 
         selections.append(nameInput)
         selections.append(components.createDropTableTemplateSelection())
@@ -59,9 +60,13 @@ class MainWindow():
         for i in range(0, len(selections)):
             self.currentSelections.addLayout(selections[i], i, 0)
 
+    def setName(self, name: str):
+        self.name = name
+        print("Name is now: " + self.name)
+
     def setCurrentType(self, type: Type):
         self.currentType = type
-        self.nameLabel.setText(components.createNameLabelText(self.currentType))
+        self.namePromptLabel.setText(components.createNameLabelText(self.currentType))
 
     def changePath(self) -> None:
         self.path = self.modSelection.changeSelectedFile()

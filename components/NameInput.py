@@ -1,9 +1,10 @@
 from PyQt6.QtWidgets import QGridLayout, QLabel, QLineEdit
 from .Type import Type
 
-def createNameInput(type: Type) -> tuple[QGridLayout, QLabel]:
+def createNameInput(type: Type, updateName: callable) -> tuple[QGridLayout, QLabel]:
     nameInputLabel = QLabel(createNameLabelText(type))
     nameInputBox = QLineEdit()
+    nameInputBox.textChanged.connect(lambda: updateName(nameInputBox.text()))
 
     nameInput = QGridLayout()
     nameInput.addWidget(nameInputLabel, 0, 0)
