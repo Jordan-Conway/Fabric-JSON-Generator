@@ -26,7 +26,7 @@ class AssetsGenerator(Generator):
             self.outputFile(pathForBlocks)
             print("Finished generating block asset file")
 
-    def _createString(self) -> str:
+    def _createString(self) -> str | None:
         data = {
             "model":
             {
