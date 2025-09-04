@@ -14,12 +14,31 @@ class Generator(ABC):
 
     @abstractmethod
     def generate(self, path: str) -> None:
-        pass
+        """Generates the designated file.
 
+        Args:
+            path (str): A string representing a path to the directory where the file will be generated.
+        """        
+        pass
+    
+    # TODO: Can be static method
     def checkValidPath(path: str) -> bool:
+        """Ensure the given directory exists
+
+        Args:
+            path (str): A string representing a path to the directory
+
+        Returns:
+            bool: Returns True if the directory exists. Otherwise, returns False
+        """        
         return os.path.isdir(path)
     
     def outputFile(self, path: str):
+        """Creates and writes to a file.
+
+        Args:
+            path (str): A string representing a path to the directory where the file will be generated.
+        """        
         try:
             fileName = path + self.name + ".json"
             data = self._createString()
@@ -34,8 +53,7 @@ class Generator(ABC):
 
     @abstractmethod
     def _createString() -> str | None:
-        """
-        Creates the string to be written to the generated file.
+        """Creates the string to be written to the generated file.
 
         Returns:
             string: A string representation of the json data
