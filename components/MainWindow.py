@@ -14,6 +14,7 @@ class MainWindow():
     path: str = ""
     modSelection = None
     name: str = ""
+    dropType: generators.LootTableTemplate = generators.LootTableTemplate.NODROPS
 
     def __init__(self, parent = ..., flags = ...):
         self.window = QWidget()
@@ -53,7 +54,7 @@ class MainWindow():
         nameInput, self.namePromptLabel = components.createNameInput(self.currentType, self.setName)
 
         selections.append(nameInput)
-        selections.append(components.createDropTableTemplateSelection())
+        selections.append(components.createDropTableTemplateSelection(self.setDropType))
         selections.append(components.createRecipeTemplateSelection())
         selections.append(components.createblockstateSelection())
 
@@ -62,11 +63,14 @@ class MainWindow():
 
     def setName(self, name: str):
         self.name = name
-        print("Name is now: " + self.name)
 
     def setCurrentType(self, type: Type):
         self.currentType = type
         self.namePromptLabel.setText(components.createNameLabelText(self.currentType))
+
+    def setDropType(self, type: generators.LootTableTemplate):
+        self.dropType = generators.LootTableTemplate(type)
+        print("Set dropType to " + str(self.dropType))
 
     def changePath(self) -> None:
         self.path = self.modSelection.changeSelectedFile()
@@ -77,7 +81,7 @@ class MainWindow():
         self.window.show()
 
     def generate(self):
-        print("Generating Files")
+        print("Generating Files for " + self.name)
         # blockstateGenFlags = generators.BlockstateFlags()
         # blockstateGenFlags.type = generators.BlockstateType.SINGLE
         # blockstateGen = generators.BlockstateGenerator("iron_grate_block", self.modName, blockstateGenFlags)
@@ -87,6 +91,10 @@ class MainWindow():
         # assetGenFlags.isBlock = True
         # assetGen = generators.AssetsGenerator("iron_grate_block", self.modName, assetGenFlags)
         # assetGen.generate("./")
+
+        lootTableGenFlags = generators.LootTableFlags(self.dropType, self.name)
+        lootTableGen = generators.LootTableGenerator(self.name, self.modName, lootTableGenFlags)
+        lootTableGen.generate("./")
 
         return
     
