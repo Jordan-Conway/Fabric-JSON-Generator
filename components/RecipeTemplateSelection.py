@@ -2,6 +2,11 @@ from PyQt6.QtWidgets import QGridLayout, QLabel, QComboBox
 
 
 def createRecipeTemplateSelection() -> QGridLayout:
+    """Creates a drop down to select a recipe template
+
+    Returns:
+        QGridLayout: A gridLayout containing a label and a drop down
+    """    
     recipeTemplateLabel = QLabel("Recipe Template")
     recipeTemplateSelection = QComboBox()
     recipeTemplateSelection.addItem("None")
