@@ -42,6 +42,11 @@ class BlockstateGenerator(Generator):
         return None
     
     def _createSingleBlocktypeString(self) -> str:
+        """Generate a string representation of a blockstate for a block with a single blockstate
+
+        Returns:
+            str: A string representation of the generated blockstate
+        """        
         data = {
             "variants":
             {

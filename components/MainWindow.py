@@ -5,6 +5,8 @@ import components
 import generators
 
 class MainWindow():
+    """The main window of the app
+    """    
     currentType: Type = Type.ITEM
     window: QWidget = None
     windowLayout: QGridLayout = None
@@ -26,6 +28,8 @@ class MainWindow():
         self.populateLayout()
 
     def populateLayout(self):
+        """Populates the window with all panes
+        """        
         msg = QLabel("<h1>Fabric JSON Generator</h1>")
         self.windowLayout.addWidget(msg, 0, 0)
 
@@ -45,6 +49,8 @@ class MainWindow():
         self.windowLayout.addWidget(generateButton, 4, 0)    
 
     def addSelections(self):
+        """Populates the selections pane with options for what file to generate
+        """        
         if self.currentSelections is None:
             self.currentSelections = QGridLayout()
             self.windowLayout.addLayout(self.currentSelections, 3, 0)
@@ -69,10 +75,17 @@ class MainWindow():
         self.namePromptLabel.setText(components.createNameLabelText(self.currentType))
 
     def setDropType(self, type: generators.LootTableTemplate):
+        """Sets the type of drop table to generate
+
+        Args:
+            type (generators.LootTableTemplate): The drop table template to use
+        """        
         self.dropType = generators.LootTableTemplate(type)
         print("Set dropType to " + str(self.dropType))
 
     def changePath(self) -> None:
+        """Updates the current path to the mod being used
+        """        
         self.path = self.modSelection.changeSelectedFile()
         #self.windowLayout.addLayout(self.modSelection.createModPathSelection(),1,0)
         print("Path is set to: " + self.path)
@@ -81,6 +94,8 @@ class MainWindow():
         self.window.show()
 
     def generate(self):
+        """Generates files according to the current selections
+        """        
         print("Generating Files for " + self.name)
         # blockstateGenFlags = generators.BlockstateFlags()
         # blockstateGenFlags.type = generators.BlockstateType.SINGLE
@@ -99,6 +114,11 @@ class MainWindow():
         return
     
 def clearLayout(layout: QLayout):
+    """Clears all widgets from a layout
+
+    Args:
+        layout (QLayout): The layout to clear
+    """    
     while layout.count():
         child = layout.takeAt(0)
         if child.widget():
