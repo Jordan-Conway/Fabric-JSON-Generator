@@ -46,6 +46,11 @@ class LootTableGenerator(Generator):
                 return None
 
     def _createSelfLootTableString(self) -> str:
+        """Creates a string representation of a drop table for a block that drops itself.
+
+        Returns:
+            str: A string representation of the generated drop table
+        """        
         data = {
             "type": "minecraft:block",
             "pools":
