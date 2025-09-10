@@ -57,6 +57,14 @@ class RecipeGenerator(Generator):
         return json.dumps(data, indent=2)
 
     def _getRecipePattern(self) -> list:
+        """Gets the recipe pattern based on the template flag
+
+        Raises:
+            NotImplementedError: Raised if an unsupported template flag is provided
+
+        Returns:
+            list: A list representing the recipe pattern
+        """        
         match self.flags.template:
             case RecipeTemplate.r_1x1:
                 return ["#"]
