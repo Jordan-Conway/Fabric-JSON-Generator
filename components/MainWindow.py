@@ -18,6 +18,11 @@ class MainWindow():
     name: str = ""
     dropType: generators.LootTableTemplate = generators.LootTableTemplate.NODROPS
 
+    generateRecipe: bool
+    recipeTemplate: generators.RecipeTemplate
+    recipeMaterial: str
+    recipeCount: int
+
     def __init__(self, parent = ..., flags = ...):
         self.window = QWidget()
         self.window.setWindowTitle("Fabric JSON Generator")
@@ -61,7 +66,7 @@ class MainWindow():
 
         selections.append(nameInput)
         selections.append(components.createDropTableTemplateSelection(self.setDropType))
-        selections.append(components.createRecipeTemplateSelection())
+        selections.append(components.createRecipeTemplateSelection(self.setRecipeGeneration, self.setRecipeTemplate, self.setRecipeMaterial, self.setRecipeCount))
         selections.append(components.createblockstateSelection())
 
         for i in range(0, len(selections)):
@@ -82,6 +87,38 @@ class MainWindow():
         """        
         self.dropType = generators.LootTableTemplate(type)
         print("Set dropType to " + str(self.dropType))
+
+    def setRecipeGeneration(self, option: bool):
+        """Sets whether a recipe file should be generated
+
+        Args:
+            option (bool)
+        """        
+        self.generateRecipe = option
+
+    def setRecipeTemplate(self, template: generators.RecipeTemplate):
+        """Sets the recipe template to be used
+
+        Args:
+            template (generators.RecipeTemplate): The template to be used
+        """        
+        self.recipeTemplate = template
+    
+    def setRecipeMaterial(self, material: str):
+        """Sets the item to be used in the crafting recipe
+
+        Args:
+            material (str): A string representing the item. Must include the identifier (E.g. minecraft:iron_ingot)
+        """        
+        self.recipeMaterial = material
+
+    def setRecipeCount(self, count: int):
+        """Sets the number of items that the recipe should produce
+
+        Args:
+            count (int)
+        """        
+        self.recipeCount = count
 
     def changePath(self) -> None:
         """Updates the current path to the mod being used
@@ -107,9 +144,14 @@ class MainWindow():
         # assetGen = generators.AssetsGenerator("iron_grate_block", self.modName, assetGenFlags)
         # assetGen.generate("./")
 
-        lootTableGenFlags = generators.LootTableFlags(self.dropType, self.name)
-        lootTableGen = generators.LootTableGenerator(self.name, self.modName, lootTableGenFlags)
-        lootTableGen.generate("./")
+        # lootTableGenFlags = generators.LootTableFlags(self.dropType, self.name)
+        # lootTableGen = generators.LootTableGenerator(self.name, self.modName, lootTableGenFlags)
+        # lootTableGen.generate("./")
+
+        # print(self.recipeTemplate)
+        # recipeGenFlags = generators.RecipeFlags(self.recipeTemplate, self.recipeMaterial, self.recipeCount)
+        # recipeGen = generators.RecipeGenerator(self.name, self.modName, recipeGenFlags)
+        # recipeGen.generate("./")
 
         return
     
