@@ -3,12 +3,15 @@ import sys
 from .Type import Type
 import components
 import generators
+from .LoggingPane import LoggingPane
+import logging
 
 class MainWindow():
     """The main window of the app
     """    
     currentType: Type = Type.ITEM
     window: QWidget = None
+    topLevelLayout: QGridLayout = None
     windowLayout: QGridLayout = None
     currentSelections: QGridLayout = None
     namePromptLabel: QLabel = None
@@ -27,10 +30,19 @@ class MainWindow():
         self.window = QWidget()
         self.window.setWindowTitle("Fabric JSON Generator")
 
+        log_handler = LoggingPane(self.window)
+        logging.getLogger().addHandler(log_handler)
+
+        self.topLevelLayout = QGridLayout()
+        self.topLevelLayout.addLayout(log_handler.getPane(), 0, 1)
+
         self.windowLayout = QGridLayout()
-        self.window.setLayout(self.windowLayout)
 
         self.populateLayout()
+
+        self.window.setLayout(self.topLevelLayout)
+
+        self.topLevelLayout.addLayout(self.windowLayout, 0, 0)
 
     def populateLayout(self):
         """Populates the window with all panes
