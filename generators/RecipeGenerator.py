@@ -11,7 +11,7 @@ class RecipeTemplate(Enum):
     r_1x3 = 6
     r_3x1 = 7
     r_3x2 = 8
-    r_2x4 = 9
+    r_2x3 = 9
     r_diamond = 10
     r_stair = 11
 
@@ -68,5 +68,25 @@ class RecipeGenerator(Generator):
         match self.flags.template:
             case RecipeTemplate.r_1x1:
                 return ["#"]
+            case RecipeTemplate.r_1x2:
+                return ["#", "#"]
+            case RecipeTemplate.r_1x3:
+                return ["#", "#", "#"]
+            case RecipeTemplate.r_2x1:
+                return ["##"]
+            case RecipeTemplate.r_2x2:
+                return ["##", "##"]
+            case RecipeTemplate.r_2x3:
+                return ["##", "##", "##"]
+            case RecipeTemplate.r_3x1:
+                return ["###"]
+            case RecipeTemplate.r_3x2:
+                return ["###", "###"]
+            case RecipeTemplate.r_3x3:
+                return ["###", "###", "###"]
+            case RecipeTemplate.r_diamond:
+                return [" # ", "# #", " # "]
+            case RecipeTemplate.r_stair:
+                return ["#  ", "## ", "###"]
             case _:
                 raise NotImplementedError("Recipe selection is not implemented")
