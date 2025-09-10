@@ -4,7 +4,8 @@ from .Type import Type
 import components
 import generators
 from .LoggingPane import LoggingPane
-import logging
+
+logger: LoggingPane = None
 
 class MainWindow():
     """The main window of the app
@@ -30,11 +31,11 @@ class MainWindow():
         self.window = QWidget()
         self.window.setWindowTitle("Fabric JSON Generator")
 
-        log_handler = LoggingPane(self.window)
-        logging.getLogger().addHandler(log_handler)
+        global logger
+        logger = LoggingPane()
 
         self.topLevelLayout = QGridLayout()
-        self.topLevelLayout.addLayout(log_handler.getPane(), 0, 1)
+        self.topLevelLayout.addLayout(logger.getPane(), 0, 1)
 
         self.windowLayout = QGridLayout()
 
@@ -98,7 +99,7 @@ class MainWindow():
             type (generators.LootTableTemplate): The drop table template to use
         """        
         self.dropType = generators.LootTableTemplate(type)
-        print("Set dropType to " + str(self.dropType))
+        logger.logInfo("Set dropType to " + str(self.dropType))
 
     def setRecipeGeneration(self, option: bool):
         """Sets whether a recipe file should be generated
@@ -137,7 +138,7 @@ class MainWindow():
         """        
         self.path = self.modSelection.changeSelectedFile()
         #self.windowLayout.addLayout(self.modSelection.createModPathSelection(),1,0)
-        print("Path is set to: " + self.path)
+        logger.logInfo("Path is set to: " + self.path)
 
     def show(self):
         self.window.show()
@@ -145,7 +146,7 @@ class MainWindow():
     def generate(self):
         """Generates files according to the current selections
         """        
-        print("Generating Files for " + self.name)
+        logger.logInfo("Generating Files for " + self.name)
         # blockstateGenFlags = generators.BlockstateFlags()
         # blockstateGenFlags.type = generators.BlockstateType.SINGLE
         # blockstateGen = generators.BlockstateGenerator("iron_grate_block", self.modName, blockstateGenFlags)
