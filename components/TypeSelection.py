@@ -1,17 +1,20 @@
 from PyQt6.QtWidgets import QLabel, QGridLayout, QComboBox
 from .Type import Type
 
+tooltipMsg = "Select whether to generate a block or item"
+
 class TypeSelection():
     typeSelectionLabel: QLabel
     typeSelectionList: QComboBox
 
     def __init__(self):
         self.typeSelectionLabel = QLabel("Type:")
+        self.typeSelectionLabel.setToolTip(tooltipMsg)
 
         self.typeSelectionList = QComboBox()
         self.typeSelectionList.addItem("Item")
         self.typeSelectionList.addItem("Block")
-
+        
     def addChangedEvent(self, func: callable):
         """Adds a function to the drop down's currentIndexChanged signal
 

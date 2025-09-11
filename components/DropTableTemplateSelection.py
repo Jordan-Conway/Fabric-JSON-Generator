@@ -1,5 +1,7 @@
 from PyQt6.QtWidgets import QGridLayout, QLabel, QComboBox
 
+toolTipMsg = "Select a template for the block to drop"
+
 def createDropTableTemplateSelection(updateDropTable: callable) -> QGridLayout:
     """Creates a dropdown for choosing which drop table template to use
 
@@ -16,6 +18,8 @@ def createDropTableTemplateSelection(updateDropTable: callable) -> QGridLayout:
     dropTableTemplateSelection.addItem("None")
     dropTableTemplateSelection.addItem("Drops Self")
     dropTableTemplateSelection.currentIndexChanged.connect(lambda: updateDropTable(dropTableTemplateSelection.currentIndex()))
+
+    dropTableTemplateLabel.setToolTip(toolTipMsg)
 
     dropTableTemplate = QGridLayout()
     dropTableTemplate.addWidget(dropTableTemplateLabel, 0, 0)
