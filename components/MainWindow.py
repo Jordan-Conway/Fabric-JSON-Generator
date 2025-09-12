@@ -1,4 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayout, QPushButton, QLayout
+
+from generators.BlockstateGenerator import BlockstateType
 from .Type import Type
 import components
 import generators
@@ -20,7 +22,7 @@ class MainWindow():
     modSelection = None
     name: str = ""
     dropType: generators.LootTableTemplate = generators.LootTableTemplate.NODROPS
-    generateBlockstate: bool
+    generateBlockstate: bool = False
 
     generateRecipe: bool
     recipeTemplate: generators.RecipeTemplate
@@ -146,7 +148,7 @@ class MainWindow():
         """        
         self.path = self.modSelection.changeSelectedFile()
         #self.windowLayout.addLayout(self.modSelection.createModPathSelection(),1,0)
-        logger.logInfo("Path is set to: " + self.path)
+        logger.logInfo("Path is set to: " + str(self.path))
 
     def show(self):
         self.window.show()
@@ -155,24 +157,24 @@ class MainWindow():
         """Generates files according to the current selections
         """        
         logger.logInfo("Generating Files for " + self.name)
-        # blockstateGenFlags = generators.BlockstateFlags()
-        # blockstateGenFlags.type = generators.BlockstateType.SINGLE
-        # blockstateGen = generators.BlockstateGenerator("iron_grate_block", self.modName, blockstateGenFlags)
-        # blockstateGen.generate("./")
+        blockstateGenFlags = generators.BlockstateFlags()
+        if self.generateBlockstate:
+            blockstateGenFlags.type = BlockstateType.SINGLE
+            blockstateGen = generators.BlockstateGenerator(self.name, self.modName, blockstateGenFlags)
+            blockstateGen.generate("./")
 
-        # assetGenFlags = generators.AssetsFlags()
-        # assetGenFlags.isBlock = True
-        # assetGen = generators.AssetsGenerator("iron_grate_block", self.modName, assetGenFlags)
-        # assetGen.generate("./")
+        assetGenFlags = generators.AssetsFlags()
+        assetGenFlags.isBlock = (self.currentType == Type.BLOCK)
+        assetGen = generators.AssetsGenerator(self.name, self.modName, assetGenFlags)
+        assetGen.generate("./")
 
-        # lootTableGenFlags = generators.LootTableFlags(self.dropType, self.name)
-        # lootTableGen = generators.LootTableGenerator(self.name, self.modName, lootTableGenFlags)
-        # lootTableGen.generate("./")
+        lootTableGenFlags = generators.LootTableFlags(self.dropType, self.name)
+        lootTableGen = generators.LootTableGenerator(self.name, self.modName, lootTableGenFlags)
+        lootTableGen.generate("./")
 
-        # print(self.recipeTemplate)
-        # recipeGenFlags = generators.RecipeFlags(self.recipeTemplate, self.recipeMaterial, self.recipeCount)
-        # recipeGen = generators.RecipeGenerator(self.name, self.modName, recipeGenFlags)
-        # recipeGen.generate("./")
+        recipeGenFlags = generators.RecipeFlags(self.recipeTemplate, self.recipeMaterial, self.recipeCount)
+        recipeGen = generators.RecipeGenerator(self.name, self.modName, recipeGenFlags)
+        recipeGen.generate("./")
 
         return
     
