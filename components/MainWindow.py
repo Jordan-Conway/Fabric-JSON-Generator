@@ -1,5 +1,4 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QComboBox, QGridLayout, QPushButton, QLayout
-import sys
 from .Type import Type
 import components
 import generators

@@ -1,5 +1,4 @@
 from PyQt6.QtWidgets import QGridLayout, QLabel, QCheckBox
-from .Tooltip import createTooltip
 
 toolTipMsg = "If selected, a blockstate file will be generated containing a default blockstate"
 
