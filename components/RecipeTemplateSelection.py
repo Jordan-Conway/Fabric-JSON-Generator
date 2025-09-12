@@ -3,6 +3,11 @@ from PyQt6.QtGui import QIntValidator
 from PyQt6.QtCore import Qt
 from generators import RecipeTemplate
 
+generateRecipeMsg = "If selected, a recipe file will be generated based on the selected template"
+recipeTemplateMsg = "Select a recipe template to use"
+recipeCountMsg = "How many items should the recipe produce. Min 1, Max 64"
+materialMsg = "The item to be used in the recipe. Must include the mod id (E.g. minecraft:oak_log)"
+
 def createRecipeTemplateSelection(updateToggle: callable, updateTemplate: callable, updateMaterial: callable, updateCount: callable) -> QGridLayout:
     """Creates a drop down to select a recipe template
 
@@ -13,20 +18,24 @@ def createRecipeTemplateSelection(updateToggle: callable, updateTemplate: callab
     checkboxLabel: QLabel = QLabel("Generate Recipe?")
     checkbox: QCheckBox = QCheckBox()
     checkbox.checkStateChanged.connect(lambda: updateToggle((checkbox.checkState() == Qt.CheckState.Checked)))
+    checkboxLabel.setToolTip(generateRecipeMsg)
 
     recipeTemplateLabel = QLabel("Recipe Template")
     recipeTemplateSelection = QComboBox()
     _addOptions(recipeTemplateSelection)
     recipeTemplateSelection.currentIndexChanged.connect(lambda: updateTemplate(RecipeTemplate(recipeTemplateSelection.currentIndex())))
+    recipeTemplateLabel.setToolTip(recipeTemplateMsg)
 
     materialLabel: QLabel = QLabel("Material:")
     materialInput: QLineEdit = QLineEdit()
     materialInput.textChanged.connect(lambda: updateMaterial(materialInput.text()))
+    materialLabel.setToolTip(materialMsg)
 
     countLabel: QLabel = QLabel("Number of items produced:")
     countInput: QSpinBox = QSpinBox()
     countInput.setRange(1, 64)
     countInput.valueChanged.connect(lambda: updateCount(countInput.value()))
+    countLabel.setToolTip(recipeCountMsg)
 
     recipeTemplate = QGridLayout()
 

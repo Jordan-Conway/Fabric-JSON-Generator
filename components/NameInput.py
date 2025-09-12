@@ -1,6 +1,8 @@
 from PyQt6.QtWidgets import QGridLayout, QLabel, QLineEdit
 from .Type import Type
 
+toolTipMsg = "Enter the name of the block or item. It should not include the mod id"
+
 def createNameInput(type: Type, updateName: callable) -> tuple[QGridLayout, QLabel]:
     """Creates an input for the name of the block or item to be added.
 
@@ -18,6 +20,8 @@ def createNameInput(type: Type, updateName: callable) -> tuple[QGridLayout, QLab
     nameInput = QGridLayout()
     nameInput.addWidget(nameInputLabel, 0, 0)
     nameInput.addWidget(nameInputBox, 0, 1)
+
+    nameInputLabel.setToolTip(toolTipMsg)
 
     return nameInput, nameInputLabel
 
