@@ -1,8 +1,9 @@
 from PyQt6.QtWidgets import QGridLayout, QLabel, QCheckBox
+from PyQt6.QtCore import Qt
 
 toolTipMsg = "If selected, a blockstate file will be generated containing a default blockstate"
 
-def createblockstateSelection() -> QGridLayout:
+def createblockstateSelection(setBlockstate: callable) -> QGridLayout:
     """Creates a checkbox for choosing whether to generate a blockstate file
 
     Returns:
@@ -12,6 +13,8 @@ def createblockstateSelection() -> QGridLayout:
     blockstateSelection = QCheckBox()
 
     blockstateLabel.setToolTip(toolTipMsg)
+
+    blockstateSelection.checkStateChanged.connect(lambda: setBlockstate(blockstateSelection.checkState() == Qt.CheckState.Checked))
 
     blockstate = QGridLayout()
     blockstate.addWidget(blockstateLabel, 0, 0)

@@ -20,6 +20,7 @@ class MainWindow():
     modSelection = None
     name: str = ""
     dropType: generators.LootTableTemplate = generators.LootTableTemplate.NODROPS
+    generateBlockstate: bool
 
     generateRecipe: bool
     recipeTemplate: generators.RecipeTemplate
@@ -79,7 +80,7 @@ class MainWindow():
         selections.append(nameInput)
         selections.append(components.createDropTableTemplateSelection(self.setDropType))
         selections.append(components.createRecipeTemplateSelection(self.setRecipeGeneration, self.setRecipeTemplate, self.setRecipeMaterial, self.setRecipeCount))
-        selections.append(components.createblockstateSelection())
+        selections.append(components.createblockstateSelection(self.setBlockstate))
 
         for i in range(0, len(selections)):
             self.currentSelections.addLayout(selections[i], i, 0)
@@ -131,6 +132,14 @@ class MainWindow():
             count (int)
         """        
         self.recipeCount = count
+
+    def setBlockstate(self, shouldGenerate: bool):
+        """Sets whether a blockstate file should be generated
+
+        Args:
+            shouldGenerate (bool)
+        """        
+        self.generateBlockstate = shouldGenerate
 
     def changePath(self) -> None:
         """Updates the current path to the mod being used
