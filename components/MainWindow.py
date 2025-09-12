@@ -24,7 +24,7 @@ class MainWindow():
     dropType: generators.LootTableTemplate = generators.LootTableTemplate.NODROPS
     generateBlockstate: bool = False
 
-    generateRecipe: bool
+    generateRecipe: bool = False
     recipeTemplate: generators.RecipeTemplate
     recipeMaterial: str
     recipeCount: int
@@ -161,20 +161,21 @@ class MainWindow():
         if self.generateBlockstate:
             blockstateGenFlags.type = BlockstateType.SINGLE
             blockstateGen = generators.BlockstateGenerator(self.name, self.modName, blockstateGenFlags)
-            blockstateGen.generate("./")
+            blockstateGen.generate(self.path)
 
         assetGenFlags = generators.AssetsFlags()
         assetGenFlags.isBlock = (self.currentType == Type.BLOCK)
         assetGen = generators.AssetsGenerator(self.name, self.modName, assetGenFlags)
-        assetGen.generate("./")
+        assetGen.generate(self.path)
 
         lootTableGenFlags = generators.LootTableFlags(self.dropType, self.name)
         lootTableGen = generators.LootTableGenerator(self.name, self.modName, lootTableGenFlags)
-        lootTableGen.generate("./")
+        lootTableGen.generate(self.path)
 
-        recipeGenFlags = generators.RecipeFlags(self.recipeTemplate, self.recipeMaterial, self.recipeCount)
-        recipeGen = generators.RecipeGenerator(self.name, self.modName, recipeGenFlags)
-        recipeGen.generate("./")
+        if(self.generateRecipe):
+            recipeGenFlags = generators.RecipeFlags(self.recipeTemplate, self.recipeMaterial, self.recipeCount)
+            recipeGen = generators.RecipeGenerator(self.name, self.modName, recipeGenFlags)
+            recipeGen.generate(self.path)
 
         return
     

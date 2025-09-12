@@ -25,10 +25,11 @@ class LootTableGenerator(Generator):
 
     def generate(self, path):
         if(Generator.checkValidPath(path) is False):
-            print("Error: Invalid path. Are you sure the blockstates folder exists?")
+            print("Error: Invalid path. Are you sure the loot table folder exists?")
+            print("Path: " + path)
             return None
         
-        pathForLootTable = path + "src\\main\\resources\\data\\" + self.mod_name + "\\loot_table\\blocks\\"
+        pathForLootTable = path + "\\data\\" + self.mod_name + "\\loot_table\\blocks\\"
         
         self.outputFile(pathForLootTable)
 

@@ -13,11 +13,11 @@ class AssetsGenerator(Generator):
 
     def generate(self, path):
         if(Generator.checkValidPath(path) is False):
-            print("Error: Invalid path. Are you sure the blockstates folder exists?")
+            print("Error: Invalid path. Are you sure the block and item folders exist?")
             return None
         
-        pathForBlocks = path + "src\\main\\resources\\assets\\" + self.mod_name + "\\blocks\\"
-        pathForItems = path + "src\\main\\resources\\assets\\" + self.mod_name + "\\items\\"
+        pathForBlocks = path + "\\assets\\" + self.mod_name + "\\blocks\\"
+        pathForItems = path + "\\assets\\" + self.mod_name + "\\items\\"
 
         self.outputFile(pathForItems)
         print("Finished generating item asset file")

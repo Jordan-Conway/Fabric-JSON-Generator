@@ -27,7 +27,7 @@ class BlockstateGenerator(Generator):
             print("Error: Invalid path. Are you sure the blockstates folder exists?")
             return None
         
-        path += "src\\main\\resources\\assets\\" + self.mod_name + "\\blockstates\\"
+        path += "\\assets\\" + self.mod_name + "\\blockstates\\"
 
         self.outputFile(path)
 

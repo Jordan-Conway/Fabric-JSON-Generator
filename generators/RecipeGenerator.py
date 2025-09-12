@@ -34,10 +34,10 @@ class RecipeGenerator(Generator):
 
     def generate(self, path):
         if(Generator.checkValidPath(path) is False):
-            print("Error: Invalid path. Are you sure the blockstates folder exists?")
+            print("Error: Invalid path. Are you sure the recipe folder exists?")
             return None
             
-        pathForRecipe = path + "src\\main\\resources\\data\\" + self.mod_name + "\\recipe\\"
+        pathForRecipe = path + "\\data\\" + self.mod_name + "\\recipe\\"
 
         self.outputFile(pathForRecipe)
 
