@@ -35,10 +35,9 @@ class ModPathSelection():
             str: A string represeting the path to the directory containing fabric.json file.
         """        
         print("Changing file")
-        fileSelection = QFileDialog(caption="Select fabric.mod.json")
-        fileSelection.setNameFilter("*.json")
-        fileSelection.exec()
-        filePath = fileSelection.selectedFiles()[0]
+        
+        filePath = self.getFileSelection()
+
         if(filePath == None):
             print("Directory is None")
             self.modPathLabel.setText("No fabric.json selected")
@@ -47,7 +46,18 @@ class ModPathSelection():
             print("File is: " + filePath)
             self.modPathLabel.setText("Using " + filePath)
             self.modPathSelector.setText("Change")
-
-        self.directory = os.path.dirname(filePath)
+            self.directory = os.path.dirname(filePath)
 
         return self.directory
+    
+    def getFileSelection(self) -> str | None:
+        fileSelection = QFileDialog(caption="Select fabric.mod.json")
+        fileSelection.setNameFilter("*.json")
+        fileSelection.exec()
+        selectedFiles = fileSelection.selectedFiles()
+
+        # If no files were selected
+        if len(selectedFiles) == 0:
+            return None
+        
+        return selectedFiles[0]
