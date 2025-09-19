@@ -23,6 +23,8 @@ class MainWindow():
     name: str = ""
     dropType: generators.LootTableTemplate = generators.LootTableTemplate.NODROPS
     generateBlockstate: bool = False
+    generateItemModel: bool = False
+    generateBlockModel: bool = False
 
     generateRecipe: bool = False
     recipeTemplate: generators.RecipeTemplate
@@ -80,6 +82,7 @@ class MainWindow():
         nameInput, self.namePromptLabel = components.createNameInput(self.currentType, self.setName)
 
         selections.append(nameInput)
+        selections.append(components.createModelSelection(self.setItemModel, self.setBlockModel))
         selections.append(components.createDropTableTemplateSelection(self.setDropType))
         selections.append(components.createRecipeTemplateSelection(self.setRecipeGeneration, self.setRecipeTemplate, self.setRecipeMaterial, self.setRecipeCount))
         selections.append(components.createblockstateSelection(self.setBlockstate))
@@ -143,6 +146,22 @@ class MainWindow():
         """        
         self.generateBlockstate = shouldGenerate
 
+    def setItemModel(self, shouldGenerate: bool):
+        """Sets wheter an item model file should be generated
+
+        Args:
+            shouldGenerate (bool)
+        """        
+        self.generateItemModel = shouldGenerate
+
+    def setBlockModel(self, shouldGenerate: bool):
+        """Sets wheter a block model file should be generated
+
+        Args:
+            shouldGenerate (bool)
+        """   
+        self.generateBlockModel = shouldGenerate
+
     def changePath(self) -> None:
         """Updates the current path to the mod being used
         """        
@@ -176,6 +195,18 @@ class MainWindow():
             recipeGenFlags = generators.RecipeFlags(self.recipeTemplate, self.recipeMaterial, self.recipeCount)
             recipeGen = generators.RecipeGenerator(self.name, self.modName, recipeGenFlags)
             recipeGen.generate(self.path)
+
+        blockModelGenerator = generators.BlockModelGenerator(self.name, self.modName)
+        blockModelGenerator.generate(self.path)
+
+        itemModelGenerator = generators.ItemModelGenerator(self.name, self.modName)
+        blockModelGenerator = generators.BlockModelGenerator(self.name, self.modName)
+
+        if(self.generateItemModel):
+            itemModelGenerator.generate(self.path)
+
+        if(self.generateBlockModel):
+            blockModelGenerator.generate(self.path)
 
         return
     
